@@ -9,3 +9,7 @@ npx tsc --inits
 # To run tsc
 
 npx tsc
+
+# prettier
+
+install karo prettier aur usko .prettierignore un sbko ignore krta hai, jo .gitignore mein hote hai
