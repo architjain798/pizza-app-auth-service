@@ -1,3 +1,5 @@
+# NVM
+
 nvm use $(Get-Content .nvmrc)
 
 # To make tsconfig file
