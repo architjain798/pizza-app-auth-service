@@ -13,3 +13,7 @@ npx tsc
 # prettier
 
 install karo prettier aur usko .prettierignore un sbko ignore krta hai, jo .gitignore mein hote hai
+
+commands
+npx prettier . --check
+npx prettier . --write

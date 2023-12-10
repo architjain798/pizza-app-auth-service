@@ -1,4 +1,4 @@
-function login(name:string) : boolean{
+function login(name: string): boolean {
     return true
 }
-console.log(login("architjain"));
+console.log(login('architjain'))
