@@ -1,7 +1,4 @@
-function login(name: string): string {
-    return name
-}
+// import { Config } from "./config";
 
-login('archit jain')
-
-// console.log(login('architjain'))
+// console.log(Config.PORT);
+// console.log(Config.NODE_ENV);
