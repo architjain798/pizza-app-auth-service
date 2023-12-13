@@ -1,4 +1,7 @@
 function login(name: string): string {
     return name
 }
-console.log(login('architjain'))
+
+login('archit jain')
+
+// console.log(login('architjain'))
