@@ -1,4 +1,4 @@
-function login(name: string): boolean {
-    return true
+function login(name: string): string {
+    return name
 }
 console.log(login('architjain'))
