@@ -1,3 +1,4 @@
+// import createError from 'http-errors'
 import app from './app'
 import { Config } from './config'
 import logger from './config/logger'
@@ -5,6 +6,8 @@ import logger from './config/logger'
 const startServer = () => {
     const PORT = Config.PORT
     try {
+        // const err = createError(401, 'Please login to view this page.')
+        // throw err
         // throw new Error('Something went wrong')
         logger.debug('debug message', {})
         app.listen(PORT, () => {
