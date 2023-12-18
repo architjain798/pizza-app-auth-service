@@ -19,3 +19,11 @@ install karo prettier aur usko .prettierignore un sbko ignore krta hai, jo .giti
 commands
 npx prettier . --check
 npx prettier . --write
+
+## git
+
+git remote -v
+
+git remote add template git@github.com:architjain798/mern-node-template.git
+
+git push template main
