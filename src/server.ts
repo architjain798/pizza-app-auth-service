@@ -11,7 +11,7 @@ const startServer = () => {
         // throw new Error('Something went wrong')
         logger.debug('debug message', {})
         app.listen(PORT, () => {
-            logger.info(`Server is running on port ${PORT}`)
+            logger.info(`New Server is running on port ${PORT}`)
         })
     } catch (error) {
         if (error instanceof Error) {
