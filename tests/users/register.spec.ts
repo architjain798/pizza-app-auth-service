@@ -1,7 +1,26 @@
 import request from 'supertest'
+import { DataSource } from 'typeorm'
 import app from '../../src/app'
+import { AppDataSource } from '../../src/config/data-source'
+import { User } from '../../src/entity/User'
+import { truncateTable } from '../utils'
 
 describe('POST /auth/register', () => {
+    let connection: DataSource
+
+    beforeAll(async () => {
+        connection = await AppDataSource.initialize()
+    })
+
+    beforeEach(async () => {
+        // database truncate
+        await truncateTable(connection)
+    })
+
+    afterAll(async () => {
+        await connection.destroy()
+    })
+
     describe('Given all fields', () => {
         it('should return the 201 status code', async () => {
             ///AAA
@@ -53,14 +72,14 @@ describe('POST /auth/register', () => {
             }
 
             // Act
-            const response = await request(app)
-                .post('/auth/register')
-                .send(userData)
+            await request(app).post('/auth/register').send(userData)
 
             // Assert
-            expect(
-                (response.headers as Record<string, string>)['content-type'],
-            ).toEqual(expect.stringContaining('json'))
+            const userRepository = connection.getRepository(User)
+
+            const users = await userRepository.find()
+
+            expect(users).toHaveLength(1)
         })
     })
 
