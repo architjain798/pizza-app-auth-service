@@ -3,6 +3,7 @@ import { DataSource } from 'typeorm'
 import app from '../../src/app'
 import { AppDataSource } from '../../src/config/data-source'
 import { User } from '../../src/entity/User'
+import { UserResponse } from '../../src/types'
 import { truncateTable } from '../utils'
 
 describe('POST /auth/register', () => {
@@ -77,9 +78,28 @@ describe('POST /auth/register', () => {
             // Assert
             const userRepository = connection.getRepository(User)
 
-            const users = await userRepository.find()
+            const users: UserResponse[] = await userRepository.find()
 
             expect(users).toHaveLength(1)
+        })
+
+        it('should return the user id', async () => {
+            // Arrange
+            const userData = {
+                firstName: 'Archit',
+                lastName: 'Jain',
+                email: 'architjain@gmail.com',
+                password: 'test@123',
+            }
+
+            // Act
+            await request(app).post('/auth/register').send(userData)
+
+            const userRepository = connection.getRepository(User)
+
+            const users: UserResponse[] = await userRepository.find()
+
+            expect(users[0].id).toBeGreaterThanOrEqual(1)
         })
     })
 
