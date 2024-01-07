@@ -2,9 +2,8 @@ import request from 'supertest'
 import { DataSource } from 'typeorm'
 import app from '../../src/app'
 import { AppDataSource } from '../../src/config/data-source'
+import { Roles } from '../../src/constants'
 import { User } from '../../src/entity/User'
-import { UserResponse } from '../../src/types'
-import { truncateTable } from '../utils'
 
 describe('POST /auth/register', () => {
     let connection: DataSource
@@ -14,8 +13,9 @@ describe('POST /auth/register', () => {
     })
 
     beforeEach(async () => {
-        // database truncate
-        await truncateTable(connection)
+        // database drop and sync
+        await connection.dropDatabase()
+        await connection.synchronize()
     })
 
     afterAll(async () => {
@@ -78,7 +78,7 @@ describe('POST /auth/register', () => {
             // Assert
             const userRepository = connection.getRepository(User)
 
-            const users: UserResponse[] = await userRepository.find()
+            const users = await userRepository.find()
 
             expect(users).toHaveLength(1)
         })
@@ -97,9 +97,29 @@ describe('POST /auth/register', () => {
 
             const userRepository = connection.getRepository(User)
 
-            const users: UserResponse[] = await userRepository.find()
+            const users = await userRepository.find()
 
             expect(users[0].id).toBeGreaterThanOrEqual(1)
+        })
+
+        it('should assign a customer role', async () => {
+            // Arrange
+            const userData = {
+                firstName: 'Archit',
+                lastName: 'Jain',
+                email: 'architjain@gmail.com',
+                password: 'test@123',
+            }
+
+            // Act
+            await request(app).post('/auth/register').send(userData)
+
+            const userRepository = connection.getRepository(User)
+
+            const users = await userRepository.find()
+
+            expect(users[0]).toHaveProperty('role')
+            expect(users[0].role).toBe(Roles.CUSTOMER)
         })
     })
 

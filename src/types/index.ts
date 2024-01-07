@@ -10,7 +10,3 @@ export interface UserData {
 export interface RegisterUserRequest extends Request {
     body: UserData
 }
-
-export interface UserResponse extends UserData {
-    id: number
-}
