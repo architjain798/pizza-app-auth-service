@@ -1,7 +1,7 @@
 import createHttpError from 'http-errors'
 import { Repository } from 'typeorm'
 import { Roles } from '../constants'
-
+import bcrypt from 'bcrypt'
 import { User } from '../entity/User'
 import { UserData } from '../types'
 
@@ -10,11 +10,14 @@ export class UserService {
 
     async create({ firstName, lastName, email, password }: UserData) {
         try {
+            const saltRound = 10
+            const hashedPassword = await bcrypt.hash(password, saltRound)
+
             return await this.userRepository.save({
                 firstName,
                 lastName,
                 email,
-                password,
+                password: hashedPassword,
                 role: Roles.CUSTOMER,
             })
         } catch (err) {
