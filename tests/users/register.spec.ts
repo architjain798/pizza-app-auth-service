@@ -168,5 +168,23 @@ describe('POST /auth/register', () => {
         })
     })
 
-    describe('Fields are missing', () => {})
+    describe('Fields are missing', () => {
+        it('should return 400 status code if email filed is missing', async () => {
+            // Arrange
+            const userData = {
+                firstName: 'Archit',
+                lastName: 'Jain',
+                email: '',
+                password: 'test@123',
+            }
+
+            // Act
+            const response = await request(app)
+                .post('/auth/register')
+                .send(userData)
+
+            //Asert
+            expect(response.statusCode).toBe(400)
+        })
+    })
 })

@@ -1,4 +1,5 @@
 import { NextFunction, Response } from 'express'
+import createHttpError from 'http-errors'
 import { Logger } from 'winston'
 
 import { UserService } from '../services/UserService'
@@ -19,6 +20,13 @@ export class AuthController {
         next: NextFunction,
     ) {
         const { firstName, lastName, email, password } = req.body
+
+        if (!email) {
+            const err = createHttpError(400, 'Email is not present')
+            next(err)
+            return
+        }
+
         this.logger.debug('New request to register a user', {
             firstName,
             lastName,
