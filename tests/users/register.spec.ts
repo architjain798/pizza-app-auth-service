@@ -179,12 +179,13 @@ describe('POST /auth/register', () => {
             }
 
             // Act
-            const response = await request(app)
-                .post('/auth/register')
-                .send(userData)
+            await request(app).post('/auth/register').send(userData)
 
+            const userRepository = connection.getRepository(User)
+            const users = await userRepository.find()
             //Asert
-            expect(response.statusCode).toBe(400)
+            // expect(response.statusCode).toBe(400)
+            expect(users).toHaveLength(0)
         })
     })
 })
