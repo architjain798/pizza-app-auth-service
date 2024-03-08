@@ -166,6 +166,8 @@ describe('POST /auth/register', () => {
             expect(response.statusCode).toBe(400)
             expect(users).toHaveLength(1)
         })
+
+        it('should return the access token and refresh token inside a cookie', async () => {})
     })
 
     describe('Fields are missing', () => {
