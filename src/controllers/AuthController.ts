@@ -8,6 +8,7 @@ import { UserService } from '../services/UserService'
 import { RegisterUserRequest } from '../types'
 import path from 'path'
 import createHttpError from 'http-errors'
+import { Config } from '../config'
 
 export class AuthController {
     userService: UserService
@@ -71,7 +72,11 @@ export class AuthController {
                 issuer: 'auth-service',
             })
 
-            const refreshToken = 'shiewkewhrjwbeew'
+            const refreshToken = sign(payload, Config.REFRESH_TOKEN_SECRET!, {
+                algorithm: 'HS256',
+                expiresIn: '1y',
+                issuer: 'auth-service',
+            })
 
             res.cookie('accessToken', accessToken, {
                 domain: 'localhost',
