@@ -9,6 +9,8 @@ import { RegisterUserRequest } from '../types'
 import path from 'path'
 import createHttpError from 'http-errors'
 import { Config } from '../config'
+import { AppDataSource } from '../config/data-source'
+import { RefreshToken } from '../entity/RefreshToken'
 
 export class AuthController {
     userService: UserService
@@ -72,10 +74,22 @@ export class AuthController {
                 issuer: 'auth-service',
             })
 
+            //Persist the refresh token
+            const MS_IN_YEAR = 1000 * 60 * 60 * 24 * 365 // 1YEAR
+
+            const refreshTokenRepository =
+                AppDataSource.getRepository(RefreshToken)
+
+            const newRefreshToken = await refreshTokenRepository.save({
+                user: user,
+                expiresAt: new Date(Date.now() + MS_IN_YEAR),
+            })
+
             const refreshToken = sign(payload, Config.REFRESH_TOKEN_SECRET!, {
                 algorithm: 'HS256',
                 expiresIn: '1y',
                 issuer: 'auth-service',
+                jwtid: String(newRefreshToken.id),
             })
 
             res.cookie('accessToken', accessToken, {
