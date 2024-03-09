@@ -40,6 +40,25 @@ export class AuthController {
                 password,
             })
             this.logger.info('User has been registered', { id: user.id })
+
+            const accessToken = 'asdasdadsadsad'
+
+            const refreshToken = 'shiewkewhrjwbeew'
+
+            res.cookie('accessToken', accessToken, {
+                domain: 'localhost',
+                sameSite: 'strict',
+                maxAge: 1000 * 60 * 60, // 1000*60 sec * 60 minutes *
+                httpOnly: true,
+            })
+
+            res.cookie('refreshToken', refreshToken, {
+                domain: 'localhost',
+                sameSite: 'strict',
+                maxAge: 1000 * 60 * 60 * 24 * 365,
+                httpOnly: true,
+            })
+
             res.status(201).json({ id: user.id })
         } catch (error) {
             next(error)

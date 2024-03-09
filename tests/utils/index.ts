@@ -8,3 +8,20 @@ export const truncateTable = async (connection: DataSource) => {
         await repository.clear()
     }
 }
+
+export const isJwt = (token: string | null) => {
+    if (token == null) {
+        return false
+    }
+    const parts = token.split('.')
+    if (parts.length != 3) {
+        return false
+    }
+    try {
+        parts.forEach((part) => {
+            Buffer.from(part).toString('utf-8')
+        })
+    } catch (error) {
+        return false
+    }
+}
