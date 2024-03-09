@@ -1,8 +1,13 @@
 import { NextFunction, Response } from 'express'
 import { Logger } from 'winston'
 import { validationResult } from 'express-validator'
+import { sign, JwtPayload } from 'jsonwebtoken'
+import fs from 'fs'
+
 import { UserService } from '../services/UserService'
 import { RegisterUserRequest } from '../types'
+import path from 'path'
+import createHttpError from 'http-errors'
 
 export class AuthController {
     userService: UserService
@@ -40,8 +45,31 @@ export class AuthController {
                 password,
             })
             this.logger.info('User has been registered', { id: user.id })
+            let privateKey: Buffer
 
-            const accessToken = 'asdasdadsadsad'
+            try {
+                privateKey = fs.readFileSync(
+                    path.join(__dirname, '../../certs/private.pem'),
+                )
+            } catch (err) {
+                const error = createHttpError(
+                    500,
+                    'Error while reading private key',
+                )
+                next(error)
+                return
+            }
+
+            const payload: JwtPayload = {
+                sub: String(user.id),
+                role: user.role,
+            }
+
+            const accessToken = sign(payload, privateKey, {
+                algorithm: 'RS256',
+                expiresIn: '1h',
+                issuer: 'auth-service',
+            })
 
             const refreshToken = 'shiewkewhrjwbeew'
 
