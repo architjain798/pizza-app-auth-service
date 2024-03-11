@@ -39,4 +39,20 @@ export class UserService {
             throw error
         }
     }
+
+    async findByEmail(email: string) {
+        try {
+            return await this.userRepository.findOne({
+                where: {
+                    email: email,
+                },
+            })
+        } catch (err) {
+            const error = createHttpError(
+                500,
+                'Error while reading private key',
+            )
+            throw error
+        }
+    }
 }
