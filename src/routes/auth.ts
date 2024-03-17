@@ -52,4 +52,8 @@ router.post('/login', (req: Request, res: Response, next: NextFunction) => {
         .catch(() => {})
 })
 
+router.get('/self', (req: Request, res: Response) => {
+    authController.self(req, res)
+})
+
 export default router

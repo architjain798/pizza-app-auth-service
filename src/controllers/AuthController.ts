@@ -1,4 +1,4 @@
-import { NextFunction, Response } from 'express'
+import { NextFunction, Request, Response } from 'express'
 import { Logger } from 'winston'
 import { validationResult } from 'express-validator'
 import { JwtPayload } from 'jsonwebtoken'
@@ -177,5 +177,9 @@ export class AuthController {
             next(error)
             return
         }
+    }
+
+    self(req: Request, res: Response) {
+        res.json({})
     }
 }
