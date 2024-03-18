@@ -55,4 +55,20 @@ export class UserService {
             throw error
         }
     }
+
+    async findById(id: number) {
+        try {
+            return await this.userRepository.findOne({
+                where: {
+                    id: id,
+                },
+            })
+        } catch (err) {
+            const error = createHttpError(
+                500,
+                'Error while reading private key',
+            )
+            throw error
+        }
+    }
 }

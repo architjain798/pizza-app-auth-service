@@ -10,6 +10,8 @@ import { TokenService } from '../services/TokenService'
 import { RefreshToken } from '../entity/RefreshToken'
 import loginValidator from '../validators/login-validator'
 import { CredentialService } from '../services/CredentialService'
+import authenticate from '../middlewares/authenticate'
+import { AuthRequest } from '../types'
 
 const router = express.Router()
 
@@ -29,7 +31,6 @@ const authController = new AuthController(
 
 // Use the middleware before your route
 router.use('/register', registerValidator)
-router.use('/login', loginValidator)
 
 router.post('/register', (req: Request, res: Response, next: NextFunction) => {
     authController
@@ -45,6 +46,7 @@ router.post('/register', (req: Request, res: Response, next: NextFunction) => {
         })
 })
 
+router.use('/login', loginValidator)
 router.post('/login', (req: Request, res: Response, next: NextFunction) => {
     authController
         .login(req, res, next)
@@ -52,8 +54,16 @@ router.post('/login', (req: Request, res: Response, next: NextFunction) => {
         .catch(() => {})
 })
 
-router.get('/self', (req: Request, res: Response) => {
-    authController.self(req, res)
+router.use('/self', authenticate)
+
+router.get('/self', async (req: Request, res: Response) => {
+    try {
+        // Assuming authController.self() returns a Promise
+        await authController.self(req as AuthRequest, res)
+        // Handle successful response
+    } catch (error) {
+        // Handle error
+    }
 })
 
 export default router
