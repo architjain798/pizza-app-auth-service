@@ -132,6 +132,8 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-
 # certificates
 certs/*.pem
+
+# public folder
+public/
