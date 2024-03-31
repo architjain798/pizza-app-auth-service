@@ -14,8 +14,6 @@ export default expressjwt({
         return refreshToken
     },
     async isRevoked(req: Request, token) {
-        console.log('token', token)
-
         try {
             const refreshTokenRepo = AppDataSource.getRepository(RefreshToken)
             const refreshToken = await refreshTokenRepo.findOne({
