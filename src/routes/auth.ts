@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import express, { NextFunction, Request, Response } from 'express'
 
 import { AppDataSource } from '../config/data-source'
@@ -12,6 +13,7 @@ import loginValidator from '../validators/login-validator'
 import { CredentialService } from '../services/CredentialService'
 import authenticate from '../middlewares/authenticate'
 import { AuthRequest } from '../types'
+import validateRefreshToken from '../middlewares/validateRefreshToken'
 
 const router = express.Router()
 
@@ -55,15 +57,19 @@ router.post('/login', (req: Request, res: Response, next: NextFunction) => {
 })
 
 router.use('/self', authenticate)
+router.get('/self', (req: Request, res: Response) => {
+    authController
+        .self(req as AuthRequest, res)
+        .then(() => {})
+        .catch(() => {})
+})
 
-router.get('/self', async (req: Request, res: Response) => {
-    try {
-        // Assuming authController.self() returns a Promise
-        await authController.self(req as AuthRequest, res)
-        // Handle successful response
-    } catch (error) {
-        // Handle error
-    }
+router.use('/refresh', validateRefreshToken)
+router.post('/refresh', (req: Request, res: Response, next: NextFunction) => {
+    authController
+        .refresh(req as AuthRequest, res, next)
+        .then(() => {})
+        .catch(() => {})
 })
 
 export default router
