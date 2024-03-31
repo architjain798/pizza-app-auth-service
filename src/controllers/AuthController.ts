@@ -27,6 +27,27 @@ export class AuthController {
         this.credentialService = credentialService
     }
 
+    addCookieToResponse(
+        res: Response,
+        accessToken: string,
+        refreshToken: string,
+    ) {
+        this.logger.debug('Add to cookie called')
+        res.cookie('accessToken', accessToken, {
+            domain: 'localhost',
+            sameSite: 'strict',
+            maxAge: 1000 * 60 * 60, // 1000*60 sec * 60 minutes *
+            httpOnly: true,
+        })
+
+        res.cookie('refreshToken', refreshToken, {
+            domain: 'localhost',
+            sameSite: 'strict',
+            maxAge: 1000 * 60 * 60 * 24 * 365,
+            httpOnly: true,
+        })
+    }
+
     async register(
         req: RegisterUserRequest,
         res: Response,
@@ -61,9 +82,9 @@ export class AuthController {
             }
 
             const accessToken = this.tokenService.generateAccessToken(payload)
+            this.logger.debug('Access token generated', { accessToken })
 
             //Persist the refresh token
-
             const newRefreshToken =
                 await this.tokenService.persistRefreshToken(user)
 
@@ -71,20 +92,10 @@ export class AuthController {
                 ...payload,
                 id: String(newRefreshToken.id),
             })
+            this.logger.debug('Refresh token generated', { refreshToken })
 
-            res.cookie('accessToken', accessToken, {
-                domain: 'localhost',
-                sameSite: 'strict',
-                maxAge: 1000 * 60 * 60, // 1000*60 sec * 60 minutes *
-                httpOnly: true,
-            })
-
-            res.cookie('refreshToken', refreshToken, {
-                domain: 'localhost',
-                sameSite: 'strict',
-                maxAge: 1000 * 60 * 60 * 24 * 365,
-                httpOnly: true,
-            })
+            // set cookie to response
+            this.addCookieToResponse(res, accessToken, refreshToken)
 
             res.status(201).json({ id: user.id })
         } catch (error) {
@@ -142,7 +153,7 @@ export class AuthController {
             }
 
             const accessToken = this.tokenService.generateAccessToken(payload)
-
+            this.logger.debug('Access token generated', { accessToken })
             //Persist the refresh token
 
             const newRefreshToken =
@@ -152,22 +163,10 @@ export class AuthController {
                 ...payload,
                 id: String(newRefreshToken.id),
             })
-
+            this.logger.debug('Refresh token generated', { refreshToken })
             // Add token to cookie
-
-            res.cookie('accessToken', accessToken, {
-                domain: 'localhost',
-                sameSite: 'strict',
-                maxAge: 1000 * 60 * 60, // 1000*60 sec * 60 minutes *
-                httpOnly: true,
-            })
-
-            res.cookie('refreshToken', refreshToken, {
-                domain: 'localhost',
-                sameSite: 'strict',
-                maxAge: 1000 * 60 * 60 * 24 * 365,
-                httpOnly: true,
-            })
+            // set cookie to response
+            this.addCookieToResponse(res, accessToken, refreshToken)
 
             this.logger.info('User has been logged in', { id: user?.id })
 
@@ -191,6 +190,7 @@ export class AuthController {
                 role: req.auth.role,
             }
             const accessToken = this.tokenService.generateAccessToken(payload)
+            this.logger.debug('Access token generated', { accessToken })
 
             const user = await this.userService.findById(Number(req.auth.sub))
 
@@ -214,20 +214,10 @@ export class AuthController {
                 ...payload,
                 id: String(newRefreshToken.id),
             })
+            this.logger.debug('Refresh token generated', { refreshToken })
 
-            res.cookie('accessToken', accessToken, {
-                domain: 'localhost',
-                sameSite: 'strict',
-                maxAge: 1000 * 60 * 60, // 1000*60 sec * 60 minutes *
-                httpOnly: true,
-            })
-
-            res.cookie('refreshToken', refreshToken, {
-                domain: 'localhost',
-                sameSite: 'strict',
-                maxAge: 1000 * 60 * 60 * 24 * 365,
-                httpOnly: true,
-            })
+            // set cookie to response
+            this.addCookieToResponse(res, accessToken, refreshToken)
 
             res.status(201).json({ id: user.id })
         } catch (error) {
