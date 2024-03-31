@@ -14,6 +14,7 @@ import { CredentialService } from '../services/CredentialService'
 import authenticate from '../middlewares/authenticate'
 import { AuthRequest } from '../types'
 import validateRefreshToken from '../middlewares/validateRefreshToken'
+import parseRefreshToken from '../middlewares/parseRefreshToken'
 
 const router = express.Router()
 
@@ -68,6 +69,14 @@ router.use('/refresh', validateRefreshToken)
 router.post('/refresh', (req: Request, res: Response, next: NextFunction) => {
     authController
         .refresh(req as AuthRequest, res, next)
+        .then(() => {})
+        .catch(() => {})
+})
+
+router.use('/logout', [authenticate, parseRefreshToken])
+router.post('/logout', (req: Request, res: Response, next: NextFunction) => {
+    authController
+        .logout(req as AuthRequest, res, next)
         .then(() => {})
         .catch(() => {})
 })
