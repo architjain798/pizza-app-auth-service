@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "auth-service",
-    "dateExported": "2024-03-18T17:07:24.977Z",
+    "dateExported": "2024-04-11T06:42:35.363Z",
     "version": "1.1",
     "folders": [],
     "requests": [
@@ -14,14 +14,92 @@
             "method": "POST",
             "sortNum": 20000,
             "created": "2024-03-18T17:04:41.295Z",
-            "modified": "2024-03-18T17:05:07.982Z",
-            "headers": [],
+            "modified": "2024-03-31T10:48:49.591Z",
+            "headers": [
+                {
+                    "name": "Cookie",
+                    "value": "accessToken=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwicm9sZSI6ImN1c3RvbWVyIiwiaWF0IjoxNzExODgxODY5LCJleHAiOjE3MTE4ODU0NjksImlzcyI6ImF1dGgtc2VydmljZSJ9.AbCHbJX7R72iJHoHNWNePMN8UKzG2rubzYoUL7PwoKXYajLPxWhUyKJjMb4cVlS7hvhBYyYHhmKrSHwaA9rbSnlf5XkbjqQ72lFuAy8zZozai9-57UfQspy1Qecioce-s5udOEOF6XiOUPk--3dV_wDjQpcqKWGcqdQx-Do2QziIY27_v4QoWQ8ovtQkgIgu4wISoAdPAXMuCSd43Kf3mNxOBKc-T8521Vx6AkFIViFSQzHuA3PCWWfhN96X_2agV_FrTWiCrEYInJfXSKy7RjNPw3PKjCHYRVVzcavQTQ0zHt5YwD8sYDFR1j4W3nF8MaDqiR9nLpnKWNE8qrU_HQ; Max-Age=3600; Domain=https://5010-monospace-pizza-app-auth-service-1710424722620.cluster-mwrgkbggpvbq6tvtviraw2knqg.cloudworkstations.dev/; Path=/; Expires=Sun, 31 Mar 2024 11:44:30 GMT; HttpOnly; SameSite=Strict"
+                },
+                {
+                    "name": "Cookie",
+                    "value": "refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwicm9sZSI6ImN1c3RvbWVyIiwiaWQiOiIyMyIsImlhdCI6MTcxMTg4MTg3MCwiZXhwIjoxNzQzNDM5NDcwLCJpc3MiOiJhdXRoLXNlcnZpY2UiLCJqdGkiOiIyMyJ9.vOz7eDnj5qcGtAI7QLo9ylidn24uJPB0W8cjlMtm-9c; Max-Age=31536000; Domain=https://5010-monospace-pizza-app-auth-service-1710424722620.cluster-mwrgkbggpvbq6tvtviraw2knqg.cloudworkstations.dev/; Path=/; Expires=Mon, 31 Mar 2025 10:44:30 GMT; HttpOnly; SameSite=Strict"
+                },
+                {
+                    "name": "Accept",
+                    "value": "*/*",
+                    "isDisabled": true
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)",
+                    "isDisabled": true
+                }
+            ],
             "params": [],
             "body": {
                 "type": "json",
                 "raw": "{\n  \"email\": \"architjain@gmail.com\",\n  \"password\": \"test@123\"\n}",
                 "form": []
             },
+            "tests": []
+        },
+        {
+            "_id": "5dcf4f83-8bb8-4496-b4ec-fa561276c2c8",
+            "colId": "3b2313af-0991-48a5-ab5c-4db53bd40499",
+            "containerId": "",
+            "name": "self",
+            "url": "http://localhost:5010/auth/self",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2024-03-20T06:34:38.129Z",
+            "modified": "2024-03-31T07:05:11.586Z",
+            "headers": [
+                {
+                    "name": "Cookie",
+                    "value": "refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwicm9sZSI6ImN1c3RvbWVyIiwiaWQiOiIxMyIsImlhdCI6MTcxMTg2ODQ1NywiZXhwIjoxNzQzNDI2MDU3LCJpc3MiOiJhdXRoLXNlcnZpY2UiLCJqdGkiOiIxMyJ9.Feoxoss3E-OKSSUTRdxsZtXme7xf6jcy3nPRBsULFtI; Max-Age=31536000; Domain=localhost; Path=/; Expires=Mon, 31 Mar 2025 07:00:57 GMT; HttpOnly; SameSite=Strict"
+                },
+                {
+                    "name": "Cookie",
+                    "value": "accessToken=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwicm9sZSI6ImN1c3RvbWVyIiwiaWF0IjoxNzExODY4NDU2LCJleHAiOjE3MTE4NzIwNTYsImlzcyI6ImF1dGgtc2VydmljZSJ9.QodD1gcHlegYJJc8KqCGCJLwwvb8tOzW5orfThw2RZUm01eOFj9pYiCgislirCR4YS25mn6DRXKywKS9aT_LUqZC0mttBJ6V8nBMw2R8VvTUi82LxswoUqEpecglHySHwOOwvAT8_LyTGBQuUdCpWymt6mqqWoYkNc27A6zM2DMfBfAm9YjFgP_v5Y4yJ0SaQvT50_ZwX6KOni8WI_j5xoTPaBoZn1ZLQ5FTwkor_I158Evg8TVcOSLOpVpXf6upxv2Cuom5K7kOMAQaNlq-8VpGr3OZXlQtZMVoMK0SP-tNn45NLYMyF_wLz4pIZSehbkRumAPy5mA8OPyU0ynPaA; Max-Age=3600; Domain=localhost; Path=/; Expires=Sun, 31 Mar 2024 08:00:57 GMT; HttpOnly; SameSite=Strict"
+                },
+                {
+                    "name": "Accept",
+                    "value": "*/*",
+                    "isDisabled": true
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)",
+                    "isDisabled": true
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "60ce21e1-2ceb-4f4b-9e48-8cb4608c2cc3",
+            "colId": "3b2313af-0991-48a5-ab5c-4db53bd40499",
+            "containerId": "",
+            "name": "self with cookie",
+            "url": "http://localhost:5010/auth/self",
+            "method": "GET",
+            "sortNum": 35000,
+            "created": "2024-03-20T07:28:21.325Z",
+            "modified": "2024-03-20T07:28:21.325Z",
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "*/*",
+                    "isDisabled": true
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)",
+                    "isDisabled": true
+                }
+            ],
+            "params": [],
+            "reqType": "post",
             "tests": []
         },
         {
@@ -41,6 +119,68 @@
                 "raw": "{\n  \"firstName\": \"Archit\",\n  \"lastName\": \"Jain\",\n  \"email\": \"architjain@gmail.com\",\n  \"password\": \"test@123\"\n}",
                 "form": []
             },
+            "tests": []
+        },
+        {
+            "_id": "3bca2d54-03f3-4a8e-a526-031b5a7f1b88",
+            "colId": "3b2313af-0991-48a5-ab5c-4db53bd40499",
+            "containerId": "",
+            "name": "refresh",
+            "url": "http://localhost:5010/auth/refresh",
+            "method": "POST",
+            "sortNum": 50000,
+            "created": "2024-03-31T06:58:40.633Z",
+            "modified": "2024-03-31T08:23:25.949Z",
+            "headers": [
+                {
+                    "name": "Cookie",
+                    "value": "accessToken=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwicm9sZSI6ImN1c3RvbWVyIiwiaWF0IjoxNzExODczMzM3LCJleHAiOjE3MTE4NzY5MzcsImlzcyI6ImF1dGgtc2VydmljZSJ9.NSTBS9V6TFwDPl6wCm5rNcpxaWC9Q1p3IlSUxPhQ5Yo7CVLCwMUsBQf1zl7l8rpu23wRUEu8Zb2xM30rlrvIiJ6ra4PMdha6bQ35YSdrgs8pO3kN1yey7GpeG7bQZzJEZisj_rr_M9PnTzrKBrgSRvCYU_XfuqKGmofxa9XQ6aqiD5B61FY2LL0quh2tIo3uJ4niLr9dbEQh7yZc9hXxbFO9iylOnmN2lMfxPr0W-6V2LdoTdbZFTAD9rpVMy6JeC6ANrdxR_kmwug8RC_VlkihfSDq3Jrz-KQFxZrr-MLXEEhUfqELl_u95JfxXsdGfE7VNi7HWtdvpHSgV-WN46g; Max-Age=3600; Domain=localhost; Path=/; Expires=Sun, 31 Mar 2024 09:22:18 GMT; HttpOnly; SameSite=Strict"
+                },
+                {
+                    "name": "Cookie",
+                    "value": "refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwicm9sZSI6ImN1c3RvbWVyIiwiaWQiOiIxNiIsImlhdCI6MTcxMTg3MzMzOCwiZXhwIjoxNzQzNDMwOTM4LCJpc3MiOiJhdXRoLXNlcnZpY2UiLCJqdGkiOiIxNiJ9.JXnL6e0CYoWrKla8BiKfGhLaaNS6QjJ2AHdb_jWlIc8; Max-Age=31536000; Domain=localhost; Path=/; Expires=Mon, 31 Mar 2025 08:22:18 GMT; HttpOnly; SameSite=Strict"
+                },
+                {
+                    "name": "Accept",
+                    "value": "*/*",
+                    "isDisabled": true
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)",
+                    "isDisabled": true
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "a8a8a415-4227-4947-bab6-48c345cd3eb0",
+            "colId": "3b2313af-0991-48a5-ab5c-4db53bd40499",
+            "containerId": "",
+            "name": "logout",
+            "url": "http://localhost:5010/auth/logout",
+            "method": "POST",
+            "sortNum": 60000,
+            "created": "2024-03-31T10:02:27.399Z",
+            "modified": "2024-03-31T10:14:41.127Z",
+            "headers": [
+                {
+                    "name": "Cookie",
+                    "value": "accessToken=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwicm9sZSI6ImN1c3RvbWVyIiwiaWF0IjoxNzExODc5ODM5LCJleHAiOjE3MTE4ODM0MzksImlzcyI6ImF1dGgtc2VydmljZSJ9.Z66yJE8EkyV4VXuP1UnDkeiSXqhYH755Sa5NUgUSoFuEhGUp5SCKNLrNOxc1Xm2dTHZhNBJPn32RO4KFaY8ctJwrJVk_aA7mFtJYJIWcnzaG1Fc1IH03tPklC3XUjRuriEy7R4OdyvkZPHQhxoxyU92lnjKB8Y3AkHsit_R92ux-3e0VtgB13nfPuD1oW8BYIYRO2QP64qkluApQwMgLQW8CqiitdEzfwJUNXiA869T30KfDIB6mSHAzn8whhvDLvTBYfLVPCHhuSG17ML37djJ1zV_d5vi0ChJdBscuLwASnzyNBD-fHHNnpy1N5CUYefarwfbEGkxBCy8QjGX8aQ; refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwicm9sZSI6ImN1c3RvbWVyIiwiaWQiOiIyMCIsImlhdCI6MTcxMTg3OTgzOSwiZXhwIjoxNzQzNDM3NDM5LCJpc3MiOiJhdXRoLXNlcnZpY2UiLCJqdGkiOiIyMCJ9.nhxHb9Bgj6ST93AxJWkIDSqKXsuU6fnsKsuB-j5xFNA;"
+                },
+                {
+                    "name": "Accept",
+                    "value": "*/*",
+                    "isDisabled": true
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)",
+                    "isDisabled": true
+                }
+            ],
+            "params": [],
             "tests": []
         }
     ]
