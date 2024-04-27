@@ -13,7 +13,7 @@ export default expressjwt({
         const { refreshToken } = req.cookies as AuthCookie
         return refreshToken
     },
-    async isRevoked(req: Request, token) {
+    async isRevoked(_req: Request, token) {
         try {
             const refreshTokenRepo = AppDataSource.getRepository(RefreshToken)
             const refreshToken = await refreshTokenRepo.findOne({

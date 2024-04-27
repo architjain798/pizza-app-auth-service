@@ -34,7 +34,6 @@ const authController = new AuthController(
 
 // Use the middleware before your route
 router.use('/register', registerValidator)
-
 router.post('/register', (req: Request, res: Response, next: NextFunction) => {
     authController
         .register(req, res, next)
