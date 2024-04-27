@@ -40,9 +40,9 @@ ixFo8djVZKeIO6iczEVR0oLWkIJ5NNm6riI1E060EPaXi7d3WA==
 -----END CERTIFICATE-----`,
     },
     // disable synchronize when in prod to be false
-    synchronize: true,
+    synchronize: false,
     logging: false,
     entities: [User, RefreshToken],
-    migrations: [],
+    migrations: ['src/migration/*.ts'],
     subscribers: [],
 })

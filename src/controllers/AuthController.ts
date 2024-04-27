@@ -139,7 +139,7 @@ export class AuthController {
             if (!passwordMatch) {
                 const err = createHttpError(
                     400,
-                    'Email or password does not match  ',
+                    'Email or password does not match',
                 )
                 next(err)
                 return
