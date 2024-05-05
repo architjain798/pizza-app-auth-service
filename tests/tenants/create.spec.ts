@@ -106,5 +106,33 @@ describe('POST /tenants', () => {
             expect(response.statusCode).toBe(403)
             expect(tenants).toHaveLength(0)
         })
+
+        it('should validate the request for empty object', async () => {
+            const tenantData = {}
+            const response = await request(app)
+                .post('/tenants')
+                .set('Cookie', [`accessToken=${adminToken};`])
+                .send(tenantData)
+
+            expect(response?.statusCode).toBe(400)
+        })
+
+        it('should validate the request for fields having empty string', async () => {
+            const tenantData = {
+                name: ' ',
+                address: ' ',
+            }
+            const response = await request(app)
+                .post('/tenants')
+                .set('Cookie', [`accessToken=${adminToken};`])
+                .send(tenantData)
+
+            expect(response?.statusCode).toBe(400)
+        })
+
+        it.todo('should return the tenant list')
+        it.todo('should return the tenant list by Id')
+        it.todo('should update the tenant by Id')
+        it.todo('should delete the tenant by Id')
     })
 })
