@@ -11,7 +11,7 @@ describe('POST /tenants', () => {
     let adminToken: string
 
     beforeAll(async () => {
-        jwks = createJWKSMock('http://localhost:5501')
+        jwks = createJWKSMock('http://localhost:5010')
         connection = await AppDataSource.initialize()
     })
 
