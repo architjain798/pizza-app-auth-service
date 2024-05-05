@@ -70,7 +70,7 @@ export class TenantController {
 
             const parsedTenantId = parseInt(tenantId, 10)
 
-            if (!tenantId || isNaN(parsedTenantId)) {
+            if (!parsedTenantId) {
                 const error = createHttpError(
                     400,
                     'Missing tenantId in the request param or invalid request',
