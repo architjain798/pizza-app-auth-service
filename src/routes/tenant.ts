@@ -23,4 +23,20 @@ router.post('/', (req, res, next) => {
         .catch(() => {})
 })
 
+router.use('/', [authenticate, canAccess([Roles.ADMIN])])
+router.get('/', (req, res, next) => {
+    tenantController
+        .findAll(req, res, next)
+        .then(() => {})
+        .catch(() => {})
+})
+
+router.use('/:tenantId', [authenticate, canAccess([Roles.ADMIN])])
+router.get('/:tenantId', (req, res, next) => {
+    tenantController
+        .findById(req, res, next)
+        .then(() => {})
+        .catch(() => {})
+})
+
 export default router

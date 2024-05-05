@@ -1,4 +1,4 @@
-import { NextFunction, Response } from 'express'
+import { NextFunction, Request, Response } from 'express'
 import { TenantService } from '../services/TenantService'
 import { CreateTenantRequest } from '../types'
 import { Logger } from 'winston'
@@ -49,6 +49,30 @@ export class TenantController {
             this.logger.info('Tenant has been created', { id: tenant.id })
 
             res.status(201).json({ id: tenant?.id })
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    async findAll(req: Request, res: Response, next: NextFunction) {
+        try {
+            const tenantList = await this.tenantService.findAll()
+
+            res.status(200).json(tenantList)
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    async findById(req: Request, res: Response, next: NextFunction) {
+        try {
+            const { tenantId } = req.params
+
+            const tenantList = await this.tenantService.findById(
+                Number(tenantId),
+            )
+
+            res.status(200).json(tenantList)
         } catch (error) {
             next(error)
         }
