@@ -68,18 +68,18 @@ export class TenantController {
         try {
             const { tenantId } = req.params
 
-            if (!tenantId) {
+            const parsedTenantId = parseInt(tenantId, 10)
+
+            if (!tenantId || isNaN(parsedTenantId)) {
                 const error = createHttpError(
                     400,
-                    'Missing tenantId in the request param',
+                    'Missing tenantId in the request param or invalid request',
                 )
                 next(error)
                 return
             }
 
-            const tenantList = await this.tenantService.findById(
-                Number(tenantId),
-            )
+            const tenantList = await this.tenantService.findById(parsedTenantId)
 
             res.status(200).json(tenantList ?? {})
         } catch (error) {
