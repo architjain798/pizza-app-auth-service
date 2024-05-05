@@ -68,11 +68,20 @@ export class TenantController {
         try {
             const { tenantId } = req.params
 
+            if (!tenantId) {
+                const error = createHttpError(
+                    400,
+                    'Missing tenantId in the request param',
+                )
+                next(error)
+                return
+            }
+
             const tenantList = await this.tenantService.findById(
                 Number(tenantId),
             )
 
-            res.status(200).json(tenantList)
+            res.status(200).json(tenantList ?? {})
         } catch (error) {
             next(error)
         }
