@@ -84,6 +84,8 @@ export class TenantController {
             res.status(200).json(tenantList ?? {})
         } catch (error) {
             next(error)
+
+            // suggest the error message code
         }
     }
 }
