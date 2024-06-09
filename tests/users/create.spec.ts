@@ -89,6 +89,7 @@ describe('POST /users', () => {
             expect(users).toHaveLength(1)
             expect(users[0].role).toBe(Roles.MANAGER)
         })
+
         it('should return 403 if non admin user tries to create a user', async () => {
             // Register the user
             const userData = {
@@ -99,18 +100,20 @@ describe('POST /users', () => {
                 tenantId: 1,
             }
 
-            const customerToken = jwks.token({
+            const managerToken = jwks.token({
                 sub: '1',
-                role: Roles.CUSTOMER,
+                role: Roles.MANAGER,
             })
 
             const response = await request(app)
                 .post('/users')
-                .set('Cookie', [`accessToken=${customerToken};`])
+                .set('Cookie', [`accessToken=${managerToken};`])
                 .send(userData)
 
             //Assert
             expect(response.statusCode).toBe(403)
         })
+
+        it.todo('should validate the request')
     })
 })
