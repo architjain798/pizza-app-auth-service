@@ -40,7 +40,7 @@ ixFo8djVZKeIO6iczEVR0oLWkIJ5NNm6riI1E060EPaXi7d3WA==
     // disable synchronize when in prod to be false
     synchronize: false,
     logging: false,
-    entities: ['src/entity/*.ts'],
-    migrations: ['src/migration/*.ts'],
+    entities: ['src/entity/*.{ts,js}'],
+    migrations: ['src/migration/*.{ts,js}'],
     subscribers: [],
 })

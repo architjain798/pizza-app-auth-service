@@ -6,3 +6,5 @@ node_modules
 ios/
 android/
 *.config.js
+*.spec.ts
+tests/
