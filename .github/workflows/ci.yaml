@@ -1,4 +1,5 @@
 name: CI
+
 on:
     pull_request:
         branches:
@@ -6,17 +7,40 @@ on:
     push:
         branches:
             - main
+
 jobs:
     build-and-test:
-        name: Build the project
+        name: Build and Test
         runs-on: ubuntu-latest
-        # if: github.event_name == 'pull_request'
         steps:
             - uses: actions/checkout@v3
+
             - name: Install dependencies
               run: npm ci
+
             - name: Run eslint
               run: npm run lint
+
+            - name: Display masked environment variables
+              run: |
+                  echo "DB_HOST length: ${#DB_HOST}"
+                  echo "DB_PORT length: ${#DB_PORT}"
+                  echo "DB_USERNAME length: ${#DB_USERNAME}"
+                  echo "DB_PASSWORD length: ${#DB_PASSWORD}"
+                  echo "DB_NAME length: ${#DB_NAME}"
+                  echo "REFRESH_TOKEN_SECRET length: ${#REFRESH_TOKEN_SECRET}"
+                  echo "JWKS_URI length: ${#JWKS_URI}"
+                  echo "PRIVATE_KEY length: ${#PRIVATE_KEY}"
+              env:
+                  DB_HOST: ${{ secrets.TEST_DB_HOST }}
+                  DB_PORT: ${{ secrets.TEST_DB_PORT }}
+                  DB_USERNAME: ${{ secrets.TEST_DB_USERNAME }}
+                  DB_PASSWORD: ${{ secrets.TEST_DB_PASSWORD }}
+                  DB_NAME: ${{ secrets.TEST_DB_NAME }}
+                  REFRESH_TOKEN_SECRET: ${{ secrets.REFRESH_TOKEN_SECRET }}
+                  JWKS_URI: ${{ secrets.JWKS_URI }}
+                  PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+
             - name: Test and coverage
               run: npm run test
               env:
@@ -28,8 +52,10 @@ jobs:
                   REFRESH_TOKEN_SECRET: ${{ secrets.REFRESH_TOKEN_SECRET }}
                   JWKS_URI: ${{ secrets.JWKS_URI }}
                   PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+
             - name: Build-ts
               run: npm run build
+
             - name: SonarCloud Scan
               uses: SonarSource/sonarcloud-github-action@master
               env:
@@ -41,18 +67,21 @@ jobs:
         needs: build-and-test
         runs-on: ubuntu-latest
         env:
-            IMAGE_NAME: codersgyan/mernstack_auth_service # codersgyan/mernstack_auth_service:build-2
+            IMAGE_NAME: codersgyan/mernstack_auth_service
             IMAGE_TAG: build-${{ github.run_number }}
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         steps:
             - name: Checkout repository
               uses: actions/checkout@v3
+
             - name: Log in to Docker Hub
               uses: docker/login-action@v1
               with:
                   username: ${{ secrets.DOCKERHUB_USERNAME }}
                   password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
             - name: Build Docker image
               run: docker build -t ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }} -f docker/prod/Dockerfile .
+
             - name: Push Docker image to Docker Hub
               run: docker push ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
