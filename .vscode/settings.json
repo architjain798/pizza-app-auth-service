@@ -1,4 +1,18 @@
 {
     "typescript.tsdk": "node_modules\\typescript\\lib",
-    "IDX.webDevTools": true
+    "IDX.webDevTools": true,
+    "github.copilot.chat.commitMessageGeneration.instructions": [
+        {
+            "name": "Default",
+            "text": "Use this to generate commit messages based on the changes made in the code.",
+            "prompt": "Generate a concise and descriptive commit message for the changes made in the code."
+        }
+    ],
+    "github.copilot.chat.codeGeneration.instructions": [
+        {
+            "name": "Default",
+            "text": "Use this to generate code snippets based on the provided context.",
+            "prompt": "Generate a code snippet that implements the specified functionality."
+        }
+    ],
 }
