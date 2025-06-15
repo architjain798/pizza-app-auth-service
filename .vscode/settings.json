@@ -13,6 +13,12 @@
             "name": "Default",
             "text": "Use this to generate code snippets based on the provided context.",
             "prompt": "Generate a code snippet that implements the specified functionality."
+        },
+        {
+            "name": "CodeGenerationDocs",
+            "text": "Refer to the documentation for code generation instructions.",
+            "prompt": "Consult the documentation in ./docs/CodeGenerationInstructions.md for code generation guidelines.",
+            "file": "./docs/CodeGenerationInstructions.md"
         }
     ],
 }
